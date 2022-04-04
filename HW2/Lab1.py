@@ -1,0 +1,1 @@
+import mathdef find_area(n, l):    area = (n * l**2) / (4 * math.tan(math.pi/n))    return(area)find_area(4, 20)

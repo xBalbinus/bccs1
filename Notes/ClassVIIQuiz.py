@@ -1,0 +1,1 @@
+def get_input():    n = input()    m = int(n)    return m def solution(n):    if n < 0:        raise ValueError("Your value is too small.")            i = 0    count = 0        while i <= n:        if i % 3 == 0 and not i % 11 == 0:            count += 1                    i += 1            return counta = get_input()count = solution(a)print(count)

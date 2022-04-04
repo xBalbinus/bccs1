@@ -1,0 +1,1 @@
+#Problem3a = int(input())def get_input(x):    data = [0] * x    for i in range(x):        data[i] = int(input())    return datadata = get_input(a)print(data)#Sort the list, then return the penultimate item (2nd largest)def solution(x):    sorted(data)    return(data[len(x) - 2])    answer = solution(data)print(answer)

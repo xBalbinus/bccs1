@@ -1,0 +1,1 @@
+#Topic: while loopsi = 0while i <= 12:    print("Hello", i)    i += 1    #Prints after the number gets increased    print("Hello again", i)print("After the while loop")i = 0print("Before the while loop")while i <= 0:    print("Hello", i)    i += 1    #Prints after the number gets increased    print("Hello again", i)print("After the while loop")
