@@ -2,7 +2,7 @@ class Stack:
     def __init__(self, length):
         
         #initialize empty array with length elements
-        self.items = [None] * length
+        self.items = [0] * length
         
         #set front index pointer
         self.front = length - 1
@@ -32,19 +32,16 @@ class Stack:
     # Function to delete an element from the front of the queue
     def pop(self):
         # Check if list, ie., items array is empty
-        if self.front == len(self.items):
+        if self.front == len(self.items)-1:
             return
-        # If not empty, check if current entry is less than the previous entry, otherwise skip.
-        for i in range (len(self.items)-2):
-        #Move back to position & print if greater.
-            if self.items[i+1] > self.items[i] and self.items[i] != 0:
-                print(self.items[i])
-                #Set back to 0
-                self.items[i] = 0
-                return
-                
+        # If not empty, remove front index from array
+        if self.front != len(self.items)-1: 
+        #Move back to position & print
+            self.front += 1
+            print(self.items[self.front])
+        #Set back to 0
+            self.items[self.front] = 0
             
-        
 if __name__ == "__main__":
     n = int(input())
     for i in range(n):
@@ -58,6 +55,8 @@ if __name__ == "__main__":
         if command == "pop":
             stack.pop()
             continue
+        if command == "get_min":
+            stack.get_min()
         else:
             stack.push(int(command))
             continue

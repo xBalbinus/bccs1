@@ -2,7 +2,7 @@ class Stack:
     def __init__(self, length):
         
         #initialize empty array with length elements
-        self.items = [None] * length
+        self.items = [0] * length
         
         #set front index pointer
         self.front = length - 1

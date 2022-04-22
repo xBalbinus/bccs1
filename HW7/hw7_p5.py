@@ -57,8 +57,6 @@ class Stack:
         return "".join(stack)   
             
             
-
-
 if __name__ == "__main__":
     word = input()
     stack = Stack(len(word))
