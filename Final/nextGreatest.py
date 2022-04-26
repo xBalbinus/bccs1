@@ -2,7 +2,7 @@
 #Monotonic stack / hashmap
 
 class Solution:
-    def nextGreaterElement(self, nums1, nums2):
+    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
         #Create a dictionary of the next greatest number
         nextGreaterDict = {}
         #Create decreasing monotonic stack
