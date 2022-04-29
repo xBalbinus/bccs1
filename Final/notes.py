@@ -1,6 +1,6 @@
 #This is the in-class notes for the final project:
 
-import pygame
+import pygame  
 
 class Card:
     #constructor
@@ -24,6 +24,25 @@ class Card:
             scene.blit(self.front, self.location)
         else:
             scene.blit(self.back, self.location)
+            
+    def touched(self, pos):
+        return self.location.collidepoints(pos)
+    
+    def react(self, event, clock):
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if self.touched(event.pos):
+                if clock.tick() < 500:
+                    self.faceup = not self.faceup
+                else:
+                    self.held = True
+        
+        elif event.type == pygame.MOUSEBUTTONUP:
+            if self.touched(event.pos):
+                self.held = False
+        
+        elif event.type == pygame.MOUSEMOTION:
+            if self.held:
+                self.location.move_ip(event.rel)
 
 if __name__ == '__main__':
     
@@ -31,6 +50,8 @@ if __name__ == '__main__':
 
     scene = pygame.display.set_mode((1400,800))
     pygame.display.set_caption("Test code for cards")
+    
+    clock = pygame.time.Clock()
     
     cards = []
 
@@ -71,3 +92,7 @@ if __name__ == '__main__':
 #e.g. with a card, you have the classes: suit, rank, color, shape, front / back, print?
 
 #methods: flip card, draw card, stack card, move card to different pile
+
+#we also want multiple stacks of cards.
+#location attribute
+#pop, flip, push, shuffle, test (if card is in)
