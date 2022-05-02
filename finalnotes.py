@@ -1,8 +1,9 @@
-#This is the in-class notes for the final project:
+#This is the in-class notes for designing Solitaire
 
+import random
 import pygame  
 
-class Card:
+class Pile:
     #constructor
     def __init__(self, suit, rank):
         self.suit = suit
@@ -27,6 +28,21 @@ class Card:
             
     def touched(self, pos):
         return self.location.collidepoints(pos)
+    
+    def shuffle(self):
+        random.shuffle(self.stack)
+    
+    def push(self,card):
+        self.stack.append(card)
+        card.location = self.location
+        card.held = False
+        
+    def pop(self):
+        if len(self.stack) > 0:
+            card = self.stack.pop()
+            card.location = self.location.copy()
+            card.held = True
+            return card
     
     def react(self, event, clock):
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -53,7 +69,22 @@ if __name__ == '__main__':
     
     clock = pygame.time.Clock()
     
-    cards = []
+    pile1 = Pile(100,100)
+    
+    for suit in ['diamonds', 'clubs', 'hearts']:
+        for rank in ['2', '4', '8']:
+            card = Pile(suit, rank)
+            pile1.push(card)
+            
+    pile1.shuffle()
+    
+    pile2 = Pile(400, 100)
+    
+    
+
+            
+    
+    card = None
 
     #pygame.mixer.music.load('music.mp3')
 
@@ -70,19 +101,30 @@ if __name__ == '__main__':
             
             if event.type == pygame.QUIT:
                 running = False
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_d:
-                    card = Card('diamonds', '10')
-                    cards.append(card)
-                elif event.key == pygame.K_c:
-                    card = Card('hearts', '8')
-                    cards.append(card)
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if pile1.touched(event.pos):
+                    card = pile1.pop()
+                    
+            elif event.type == pygame.MOUSEBUTTONUP:
+                if card:
+                    if pile2.touched(event.pos):
+                        pile2.push(card)
+                        card = None
+                    else:
+                        pile1.push(card)
+                        card = None
+                    
+            if card:
+                card.react(event, clock)
 
         
         scene.fill([0,153,0])
-        for card in cards:
+        pile1.stage(scene)
+        pile2.stage(scene)
+        if card:
             card.stage(scene)
         pygame.display.update()
+        
     
 #Event: the way your program interacts with the world (e.g. if someone presses a key in a game)
 
